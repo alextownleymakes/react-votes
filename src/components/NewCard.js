@@ -12,7 +12,8 @@ class NewCard extends Component {
 
     update = (e) => {
         if (e.target.value.length < 160) {
-            if (e.keyCode === 13) {
+            if (e.keyCode === 13 && e.target.value !== "") {
+
                 this.props.add(e.target.value);
                 e.target.value = "";
             } else {
