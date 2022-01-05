@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles';
 
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -16,6 +17,7 @@ import { FaAngleUp, FaAngleDown } from 'react-icons/fa'
 const styles = theme => ({
     root: {
         fontSize: 7,
+        color: '#aaa'
     },
   });
 
@@ -30,7 +32,7 @@ class VoteCard extends Component {
     render() {
         const { classes } = this.props;
         return(
-                <Grid item xs={3} key={this.props.num}>
+                <Grid item xs={2} key={this.props.num}>
                     <Card>
                         <CardContent>
                             <Grid container xs={12}>
@@ -45,17 +47,21 @@ class VoteCard extends Component {
                                     </Typography>
                                 </Grid>
                             </Grid>
-                                <Typography gutterBottom align="center" mt={20} mb={5}>
-                                    {this.state.data.name}
-                                </Typography>
+                                <Box mb={3} mt={3}>
+                                    <Typography gutterBottom align="center" style={{overflowWrap: "break-word", minHeight: 170, maxHeight: 170, overflowY: 'hidden'}} paddingTop={20} paddingBottom={5}>
+                                        {this.state.data.name}
+                                    </Typography>
+                                </Box>
                             <Grid container align="right" xs={12}>
-                                <Typography align="center">
+                                <Grid item align="right" xs={12}>
+                                <ButtonGroup size="small" variant="text" >
+                                <Typography align="center" style={{fontSize: 14, color: '#999'}}>
                                     {this.state.data.votes}
                                 </Typography>
-                                <ButtonGroup size="small" variant="text" >
                                     <Button key="up" onClick={() => {this.props.up(this.props.num)}}><FaAngleUp/></Button>,
                                     <Button key="down" onClick={() => {this.props.down(this.props.num)}}><FaAngleDown/></Button>
                                 </ButtonGroup>
+                                </Grid>
                             </Grid>
                         </CardContent>
                     </Card>

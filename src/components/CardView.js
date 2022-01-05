@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
 import VoteCard from './VoteCard'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -66,6 +67,16 @@ class CardView extends Component {
         this.setState({cards: cards})
     }
 
+    fieldLength = (o) => {
+        this.setState({fl: o})
+    }
+
+    fl = (o) => {
+        var fl = this.state.fl;
+        var remaining = 150 - o;
+        if (o > 0) { return <Typography style={{marginTop: 7, color: '#ff8888', fontSize: 13}}>{ remaining } characters remaining!</Typography> }
+    }
+
     renderCards(o) {
         let cards = []
         for (var i = 0; i < o.length; i++) {
@@ -80,13 +91,17 @@ class CardView extends Component {
     render() {
         return (
             <>
-            <Grid container className="cardContainer" justifyContent="center" spacing={5} xs={12}>
+            <Grid container className="cardContainer" justifyContent="center" spacing={1} xs={12}style={{marginTop: 5}}>
                 <Grid item xs={4}/>
                 <Grid item xs={4} align="center">
-                    <NewCard add={this.add}/><br/>
+                    <NewCard add={this.add} fieldLength={this.fieldLength}/><br/>
                 </Grid>
-                <Grid item xs={4}/>
-                {this.renderCards(this.state.cards)}
+                <Grid item xs={4} >{this.state.fl > 0 ? this.fl(this.state.fl) : null}</Grid>
+                <Grid container className="cardContainer" justifyContent="center" spacing={3} xs={12} style={{marginTop: 30}}>
+                    {/* <Box> */}
+                        {this.renderCards(this.state.cards)}
+                    {/* </Box> */}
+                </Grid>
             </Grid>
             </>
         )

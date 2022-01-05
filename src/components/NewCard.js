@@ -10,12 +10,15 @@ class NewCard extends Component {
         }
     }
 
+    
+
     update = (e) => {
+        console.log(this.props)
         if (e.target.value.length < 160) {
             if (e.keyCode === 13 && e.target.value !== "") {
-
                 this.props.add(e.target.value);
                 e.target.value = "";
+                this.props.fieldLength(0);
             } else {
                 this.setState({value: e.target.value})
             }
@@ -25,9 +28,13 @@ class NewCard extends Component {
         }
     }
 
+    fl = (e) => {
+        this.props.fieldLength(e.target.value.length);
+    }
+
     render() {
         return(
-            <Input placeholder="type something and press enter" fullWidth onKeyDown={(e) => {this.update(e);}}></Input>
+            <Input placeholder="type + enter. 150 characters max." inputProps={{ maxLength: 150 }} fullWidth onKeyDown={(e) => {this.update(e);}} onChange={(e) => {this.fl(e);}}></Input>
         )
     }
 }
