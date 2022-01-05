@@ -7,6 +7,10 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Container } from "@material-ui/core";
+import NewCard from "./NewCard";
+
+import { v4 as uuidv4 } from 'uuid';
+
 
 const useStyles = makeStyles({
     root: {
@@ -52,9 +56,20 @@ class CardView extends Component {
         this.setState({cards: cards })
     }
 
+    add = (o) => {
+        var cards = this.state.cards;
+        var newid = uuidv4();
+        var newCard = { cardId: newid, cardCount: (cards.length + 1), name: o, votes: 0 }
+        cards.push(newCard);
+        console.log(cards)
+
+        this.setState({cards: cards})
+    }
+
     renderCards(o) {
         let cards = []
         for (var i = 0; i < o.length; i++) {
+            console.log(o[i])
             o[i].votes > -5 && cards.push(
                 <VoteCard data={o[i]} key={i} num={i} up={this.up} down={this.down}/>
             )
@@ -63,15 +78,17 @@ class CardView extends Component {
     }
 
     render() {
-        console.log(this.state.cards)
         return (
-            <Grid container className="cardContainer" justifyContent="center" spacing={5}>
-                <Grid item lg={12} xs={12}>
-                    <Grid container justifyContent="center" spacing={5}>
-                        {this.renderCards(this.state.cards)}
-                    </Grid>
+            <>
+            <Grid container className="cardContainer" justifyContent="center" spacing={5} xs={12}>
+                <Grid item xs={4}/>
+                <Grid item xs={4} align="center">
+                    <NewCard add={this.add}/><br/>
                 </Grid>
+                <Grid item xs={4}/>
+                {this.renderCards(this.state.cards)}
             </Grid>
+            </>
         )
     }
 }
