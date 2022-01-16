@@ -1,14 +1,11 @@
 import React, { Component } from "react"
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
 import VoteCard from './VoteCard'
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { Container } from "@material-ui/core";
 import NewCard from "./NewCard";
+
+import Api from '../Api/Api'
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -47,24 +44,30 @@ class CardView extends Component {
 
     up = (o) => {
         var cards = this.state.cards;
-        cards[o].votes++
-        this.setState({cards: cards })
+        cards[o].votes++;
+        this.setState({cards: cards});
+
+        Api.upvote(cards[o]);
     }
 
     down = (o) => {
         var cards = this.state.cards;
-        cards[o].votes--
-        this.setState({cards: cards })
+        cards[o].votes--;
+        this.setState({cards: cards });
+
+        Api.downvote(cards[o]);
+
     }
 
     add = (o) => {
         var cards = this.state.cards;
         var newid = uuidv4();
-        var newCard = { cardId: newid, cardCount: (cards.length + 1), name: o, votes: 0 }
+        var newCard = { cardId: newid, cardCount: (cards.length), name: o, votes: 0 };
         cards.push(newCard);
-        console.log(cards)
 
         this.setState({cards: cards})
+
+        Api.newCard(JSON.stringify(cards))
     }
 
     fieldLength = (o) => {
@@ -80,13 +83,14 @@ class CardView extends Component {
     renderCards(o) {
         let cards = []
         for (var i = 0; i < o.length; i++) {
-            console.log(o[i])
             o[i].votes > -5 && cards.push(
                 <VoteCard data={o[i]} key={i} num={i} up={this.up} down={this.down}/>
             )
         }
         return cards;
     }
+
+    
 
     render() {
         return (

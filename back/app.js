@@ -8,11 +8,13 @@ var cors = require("cors");
 
 
 var indexRouter = require('./routes/index');
+var apiRouter = require('./routes/api');
 var usersRouter = require('./routes/users');
 var testAPIRouter = require("./routes/testAPI");
 
 var app = express();
 
+var test = null;
 
 app.use(cors());
 app.use(express.json());
@@ -28,6 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api', apiRouter);
 app.use('/users', usersRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -44,16 +47,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.get('/cards', function(req, res, next) {
-  res.json(
-    { cardId: 555, cardCount: 0, name: 'one', votes: 0 }
-    , { cardId: 555, cardCount: 1, name: 'two', votes: 0 }
-    , { cardId: 555, cardCount: 2, name: 'three', votes: 0 }
-    , { cardId: 555, cardCount: 3, name: 'four', votes: 0 }
-    , { cardId: 555, cardCount: 4, name: 'five', votes: 0 }
-    , { cardId: 555, cardCount: 5, name: 'six', votes: 0 }
-  )
-})
 
 module.exports = app;

@@ -1,6 +1,1 @@
-[{ "cardId": 555, "cardCount": 0, "name": "one", "votes": 0 }
-    , { "cardId": 555, "cardCount": 1, "name": "two", "votes": 0 }
-    , { "cardId": 555, "cardCount": 2, "name": "three", "votes": 0 }
-    , { "cardId": 2374827348273555, "cardCount": 3, "name": "four", "votes": 0 }
-    , { "cardId": 555, "cardCount": 4, "name": "five", "votes": 0 }
-    , { "cardId": 555, "cardCount": 5, "name": "six", "votes": 0 }]
+[{"cardId":"a14325e1-6649-484d-9908-c0bbab515cd4","cardCount":0,"name":"beans","votes":-1},{"cardId":"1e7a8470-a710-4992-8692-54bdc5edb086","cardCount":1,"name":"jeans","votes":-5},{"cardId":"7242a408-a0cb-410d-aa8d-2a2bbadec837","cardCount":2,"name":"jeans","votes":3}]

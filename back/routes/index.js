@@ -17,7 +17,7 @@ router.get("/bestAPI", function(req, res, next) {
   res.render('test', { title: 'beans or jeans' });
 })
 
-router.get('/api/cards', function(req, res, next) {
+router.get('/api/cards/getallcards', function(req, res, next) {
 
   fs.readFile('./data/cards.json', (err, json) => {
     let obj = JSON.parse(json);

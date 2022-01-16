@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CardView from "./CardView";
 import { render } from "@testing-library/react";
 import { v4 as uuidv4 } from 'uuid';
+import Api from '../Api/Api'
 
 
 class Home extends Component {
@@ -12,19 +13,18 @@ class Home extends Component {
         }
     }
 
-
-    api = () => {
-        fetch("http://localhost:9000/api/cards")
-            .then(res => res.text())
-            .then(res => this.setState({ cards: JSON.parse(res) }, () => {console.log(this.state.res)}));    
+    getAllCards = () => {
+        Api.getAllCards().then(data => {
+            this.setState({cards: data.data})
+        })
     }
 
     componentDidMount() {
-        this.api();
+
+        this.getAllCards();
     }
 
     render() {
-        console.log(this.state.cards)
         return(
             <>
                 {this.state.cards && <CardView data={this.state.cards}/>}
