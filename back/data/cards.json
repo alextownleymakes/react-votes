@@ -1,0 +1,6 @@
+[{ "cardId": 555, "cardCount": 0, "name": "one", "votes": 0 }
+    , { "cardId": 555, "cardCount": 1, "name": "two", "votes": 0 }
+    , { "cardId": 555, "cardCount": 2, "name": "three", "votes": 0 }
+    , { "cardId": 2374827348273555, "cardCount": 3, "name": "four", "votes": 0 }
+    , { "cardId": 555, "cardCount": 4, "name": "five", "votes": 0 }
+    , { "cardId": 555, "cardCount": 5, "name": "six", "votes": 0 }]
