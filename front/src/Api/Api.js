@@ -49,6 +49,30 @@ const Api = {
         } catch (err) {
             return (err);
         }
+    },
+
+    login(data) {
+        try {
+            return axios('/users/login', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                data: data
+            })
+        } catch (err) {
+            return (err);
+        }
+    },
+
+    register(data) {
+        try {
+            return axios('/users/register', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                data: data
+            })
+        } catch (err) {
+            return (err);
+        }
     }
 }
 

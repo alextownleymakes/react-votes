@@ -71,11 +71,8 @@ class CardView extends Component {
         var newid = uuidv4();
         var newCard = { cardId: newid, cardCount: (cards.length), content: o, votes: 0 };
         cards.push(newCard);
-
-        var ncj = JSON.stringify(newCard)
+        
         this.setState({cards: cards})
-        console.log(newCard)
-        console.log(ncj)
         Api.newCard(JSON.stringify(newCard))
     }
 

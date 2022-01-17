@@ -50,5 +50,21 @@ router.route('/cards/vote').post(function(req, res, next) {
 
 })
 
+router.post('/users/login', function(req, res, next) {
+  res.send({
+    token: 'test123'
+  });
+})
+
+router.post('/users/register', function(req, res, next) {
+  let dbc = dbo.getDb();
+  let user = req.body;
+
+  dbc.collection("users").insertOne(user, function (err, resp) {
+      if (err) throw err;
+      res.json(resp);
+  })
+})
+
 
 module.exports = router;
