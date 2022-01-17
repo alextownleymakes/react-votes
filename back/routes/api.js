@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+const dbo = require("../db/conn")
+const ObjectId = require("mongodb").ObjectId;
+
 var fs = require('fs');
 
 /* GET home page. */
@@ -8,54 +11,44 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-router.get("/bestAPI", function(req, res, next) {
-  res.render('test', { title: 'beans or jeans' });
-})
-
 router.get('/cards/getallcards', function(req, res, next) {
-    fs.readFile('./data/cards.json', (err, json) => {
-        let obj = JSON.parse(json);
-        res.json(obj);
+    let dbc = dbo.getDb("cards");
+    dbc
+    .collection("cards")
+    .find({})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
     });
 })
 
 router.post('/cards/newcard', function(req, res, next) {
-    res.send(req.body);
-    console.log(req.body);
-    fs.writeFileSync('./data/cards.json', JSON.stringify(req.body));
+    let dbc = dbo.getDb();
+    let card = req.body;
+
+    dbc.collection("cards").insertOne(card, function (err, resp) {
+        if (err) throw err;
+        res.json(resp);
+    })
 })
 
-router.post('/cards/vote', function(req, res, next) {
-    let obj = []
+router.route('/cards/vote').post(function(req, res, next) {
 
     let data = req.body;
-    let id = req.body.cardCount;
-    
-    fs.readFile('./data/cards.json', (err, json) => {
-        obj = JSON.parse(json);
-        obj[id] = data;
-        console.log(obj)
-        res.send(obj)
+    let newData = {$set: {votes: data.votes}};
 
-        fs.writeFileSync('./data/cards.json', JSON.stringify(obj));
-    })
+    let dbc = dbo.getDb();
+    console.log(data)
+    let myquery = { cardId: data.cardId };
+    dbc
+      .collection("cards")
+      .updateOne(myquery, newData, function (err, resp) {
+        if (err) throw err;
+        console.log("1 document updated");
+        res.json(resp);
+      });
 
-    // console.log(obj)
-
-    // res.send(req.body);
-    // console.log(req.body);
-    // fs.writeFileSync('./data/cards.json', JSON.stringify(req.body));
 })
 
-router.put('/cards/downvote', function(req, res, next) {
-    res.send(req.body);
-    console.log(req.body);
-    fs.writeFileSync('./data/cards.json', JSON.stringify(req.body));
-})
 
 module.exports = router;

@@ -34,12 +34,19 @@ class CardView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cards: this.props.data
+            cards: null
         }
     }
     
     componentDidMount() {
+        this.getAllCards();
+    }
 
+    getAllCards = () => {
+        Api.getAllCards().then(data => {
+            console.log(data)
+            this.setState({cards: data.data}) 
+        })
     }
 
     up = (o) => {
@@ -62,12 +69,14 @@ class CardView extends Component {
     add = (o) => {
         var cards = this.state.cards;
         var newid = uuidv4();
-        var newCard = { cardId: newid, cardCount: (cards.length), name: o, votes: 0 };
+        var newCard = { cardId: newid, cardCount: (cards.length), content: o, votes: 0 };
         cards.push(newCard);
 
+        var ncj = JSON.stringify(newCard)
         this.setState({cards: cards})
-
-        Api.newCard(JSON.stringify(cards))
+        console.log(newCard)
+        console.log(ncj)
+        Api.newCard(JSON.stringify(newCard))
     }
 
     fieldLength = (o) => {
@@ -103,7 +112,7 @@ class CardView extends Component {
                 <Grid item xs={4} >{this.state.fl > 0 ? this.fl(this.state.fl) : null}</Grid>
                 <Grid container className="cardContainer" justifyContent="center" spacing={3} xs={12} style={{marginTop: 30}}>
                     {/* <Box> */}
-                        {this.renderCards(this.state.cards)}
+                        {this.state.cards && this.renderCards(this.state.cards)}
                     {/* </Box> */}
                 </Grid>
             </Grid>

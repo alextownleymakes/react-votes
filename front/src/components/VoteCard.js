@@ -49,7 +49,7 @@ class VoteCard extends Component {
                             </Grid>
                                 <Box mb={3} mt={3}>
                                     <Typography gutterBottom align="center" style={{overflowWrap: "break-word", minHeight: 170, maxHeight: 170, overflowY: 'hidden'}} paddingTop={20} paddingBottom={5}>
-                                        {this.state.data.name}
+                                        {this.state.data.content}
                                     </Typography>
                                 </Box>
                             <Grid container align="right" xs={12}>

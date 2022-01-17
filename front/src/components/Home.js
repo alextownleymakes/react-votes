@@ -13,21 +13,11 @@ class Home extends Component {
         }
     }
 
-    getAllCards = () => {
-        Api.getAllCards().then(data => {
-            this.setState({cards: data.data})
-        })
-    }
-
-    componentDidMount() {
-
-        this.getAllCards();
-    }
 
     render() {
         return(
             <>
-                {this.state.cards && <CardView data={this.state.cards}/>}
+                <CardView/>
             </>
         )
     }

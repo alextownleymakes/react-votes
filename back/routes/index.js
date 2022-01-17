@@ -17,14 +17,6 @@ router.get("/bestAPI", function(req, res, next) {
   res.render('test', { title: 'beans or jeans' });
 })
 
-router.get('/api/cards/getallcards', function(req, res, next) {
-
-  fs.readFile('./data/cards.json', (err, json) => {
-    let obj = JSON.parse(json);
-    res.json(obj);
-  });
-})
-
 router.get('/cardstest', function(req, res, next) {
   res.send("test")
 })
